@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-void	ft_read(int fd, char *buf, char **factory)
+static void	ft_read(int fd, char *buf, char **factory)
 {
 	int		i;
 	char	*tmp;
@@ -24,7 +24,7 @@ void	ft_read(int fd, char *buf, char **factory)
 		{
 			buf[i] = 0;
 			if (!*factory)
-				*factory = ft_strdup(buf);
+				*factory = ft_substr(buf, 0, i);
 			else
 			{
 				tmp = *factory;
@@ -39,7 +39,7 @@ void	ft_read(int fd, char *buf, char **factory)
 	free(buf);
 }
 
-int	ft_process(char **line, char **factory)
+static int	ft_process(char **line, char **factory)
 {
 	int		i;
 	int		j;
@@ -47,12 +47,12 @@ int	ft_process(char **line, char **factory)
 
 	if (!*factory)
 	{
-		*line = ft_strdup("");
+		*line = ft_substr("", 0, 0);
 		return (0);
 	}
 	if (!ft_strchr(*factory, '\n'))
 	{
-		*line = ft_strdup(*factory);
+		*line = ft_substr(*factory, 0, ft_strlen(*factory));
 		free(*factory);
 		*factory = 0;
 		return (0);
@@ -61,7 +61,7 @@ int	ft_process(char **line, char **factory)
 	j = ft_strlen(ft_strchr(*factory, '\n'));
 	*line = ft_substr(*factory, 0, i - j);
 	tmp = *factory;
-	*factory = ft_strdup(ft_strchr(tmp, '\n') + 1);
+	*factory = ft_substr(ft_strchr(*factory, '\n'), 1, j);
 	free(tmp);
 	return (1);
 }
