@@ -6,7 +6,7 @@
 /*   By: hbaddrul <hbaddrul@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:09:54 by hbaddrul          #+#    #+#             */
-/*   Updated: 2021/06/08 01:10:03 by hbaddrul         ###   ########.fr       */
+/*   Updated: 2021/07/03 21:07:38 by hbaddrul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	ft_read(int fd, char *buf, char **factory)
 			else
 			{
 				tmp = factory[fd];
-				factory[fd] = ft_strjoin(tmp, buf);
+				factory[fd] = ft_strjoin(factory[fd], buf);
 				free(tmp);
 			}
 			if (ft_strchr(buf, '\n'))
