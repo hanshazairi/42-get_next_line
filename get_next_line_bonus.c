@@ -6,7 +6,7 @@
 /*   By: hbaddrul <hbaddrul@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:09:54 by hbaddrul          #+#    #+#             */
-/*   Updated: 2021/07/03 21:07:38 by hbaddrul         ###   ########.fr       */
+/*   Updated: 2021/07/07 03:41:51 by hbaddrul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,44 +39,42 @@ static void	ft_read(int fd, char *buf, char **factory)
 	free(buf);
 }
 
-static int	ft_process(int fd, char **line, char **factory)
+static char	*ft_process(int fd, char **factory)
 {
 	int		i;
 	int		j;
+	char	*ret;
 	char	*tmp;
 
 	if (!factory[fd])
-	{
-		*line = ft_substr("", 0, 0);
 		return (0);
-	}
 	if (!ft_strchr(factory[fd], '\n'))
 	{
-		*line = ft_substr(factory[fd], 0, ft_strlen(factory[fd]));
+		ret = ft_substr(factory[fd], 0, ft_strlen(factory[fd]));
 		free(factory[fd]);
 		factory[fd] = 0;
-		return (0);
+		return (ret);
 	}
 	i = ft_strlen(factory[fd]);
 	j = ft_strlen(ft_strchr(factory[fd], '\n'));
-	*line = ft_substr(factory[fd], 0, i - j);
+	ret = ft_substr(factory[fd], 0, i - j + 1);
 	tmp = factory[fd];
 	factory[fd] = ft_substr(ft_strchr(factory[fd], '\n'), 1, j);
 	free(tmp);
-	return (1);
+	return (ret);
 }
 
-int	get_next_line(int fd, char **line)
+char	*get_next_line(int fd)
 {
 	char		*buf;
 	static char	*factory[OPEN_MAX];
 
 	buf = malloc(BUFFER_SIZE + 1);
-	if (BUFFER_SIZE < 1 || fd == -1 || !line || !buf || read(fd, buf, 0) == -1)
+	if (BUFFER_SIZE < 1 || fd == -1 || !buf || read(fd, buf, 0) == -1)
 	{
 		free(buf);
-		return (-1);
+		return (0);
 	}
 	ft_read(fd, buf, factory);
-	return (ft_process(fd, line, factory));
+	return (ft_process(fd, factory));
 }
