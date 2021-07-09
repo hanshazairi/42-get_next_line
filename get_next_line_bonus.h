@@ -6,7 +6,7 @@
 /*   By: hbaddrul <hbaddrul@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/08 01:10:36 by hbaddrul          #+#    #+#             */
-/*   Updated: 2021/07/07 03:46:29 by hbaddrul         ###   ########.fr       */
+/*   Updated: 2021/07/09 14:59:11 by hbaddrul         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-char    *get_next_line(int fd);
+char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
 char	*ft_substr(const char *s, unsigned int start, size_t len);
 size_t	ft_strlen(const char *s);
